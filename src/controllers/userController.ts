@@ -13,7 +13,7 @@ export class UserController {
   async one(request: Request, response: Response, next: NextFunction) {
     console.log(request.params.id);
     return this.userRepository.findOneBy({
-      id: request.params.id,
+      id: Number(request.params.id),
     });
   }
 
@@ -22,7 +22,7 @@ export class UserController {
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
-    const userToRemove = await this.userRepository.findOneBy({ id: request.params.id });
+    const userToRemove = await this.userRepository.findOneBy({ id: Number(request.params.id) });
     await this.userRepository.remove(userToRemove);
   }
 }
