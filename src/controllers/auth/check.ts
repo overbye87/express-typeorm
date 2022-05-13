@@ -1,0 +1,12 @@
+/* eslint-disable no-unused-vars */
+import { Handler } from 'express';
+import { AppDataSource } from '../../data-source';
+import { User } from '../../entity/User';
+
+const userRepository = AppDataSource.getRepository(User);
+
+export const check: Handler = async (request, response, next) => {
+  return userRepository.findOneBy({
+    id: Number(request.params.id),
+  });
+};

@@ -25,6 +25,7 @@ module.exports = {
     ],
     'arrow-body-style': 0,
     'import/prefer-default-export': 'off',
+    'no-unused-vars': 'warn',
   },
   settings: {
     'import/resolver': {

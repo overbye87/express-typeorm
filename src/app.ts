@@ -1,14 +1,16 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import * as bodyParser from 'body-parser';
 
-import root from './routes/root';
+import rootRouter from './routes/rootRouter';
+import errorHandler from './middlewares/errorHandler';
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
-app.use(root);
+app.use(rootRouter);
+
+app.use(errorHandler);
 
 export default app;
