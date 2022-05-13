@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { Handler } from 'express';
-import { AppDataSource } from '../../data-source';
+import { AppDataSource } from '../../db/dataSource';
 import { User } from '../../entity/User';
 import { createHash } from '../../utils/hash';
 import { throwError } from '../../utils/throwError';
@@ -28,15 +28,17 @@ export const signUp: Handler = async (req, res, next) => {
         message: `Email ${req.body.email} alredy exist`,
       });
     }
+    const password = await createHash(req.body.password);
     const newUser: Omit<User, 'id'> = {
       email: req.body.email,
-      password: await createHash(req.body.password),
+      password,
       login: req.body.login,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
     };
     const user = userRepository.create(newUser);
     await userRepository.save(user);
+    delete user.password;
     return res.json({
       data: user,
       message: 'User created successfully',

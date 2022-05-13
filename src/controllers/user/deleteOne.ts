@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from 'express';
-import { AppDataSource } from '../../data-source';
+import { AppDataSource } from '../../db/dataSource';
 import { User } from '../../entity/User';
 
 const userRepository = AppDataSource.getRepository(User);

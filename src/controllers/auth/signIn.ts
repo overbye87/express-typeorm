@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { Handler, Request, Response } from 'express';
-import { AppDataSource } from '../../data-source';
+import { AppDataSource } from '../../db/dataSource';
 import { User } from '../../entity/User';
 import { IUser } from '../../types/user';
 import { verifyHash } from '../../utils/hash';
