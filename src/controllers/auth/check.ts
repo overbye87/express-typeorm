@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Handler } from 'express';
 import { AppDataSource } from '../../db/dataSource';
-import { User } from '../../entity/User';
+import { User } from '../../db/entity/User';
 
 const userRepository = AppDataSource.getRepository(User);
 

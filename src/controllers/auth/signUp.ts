@@ -2,16 +2,20 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { Handler } from 'express';
+import { DeepPartial } from 'typeorm';
 import { AppDataSource } from '../../db/dataSource';
-import { User } from '../../entity/User';
+import { Role } from '../../db/entity/Role';
+import { User } from '../../db/entity/User';
 import { createHash } from '../../utils/hash';
 import { throwError } from '../../utils/throwError';
 import { createToken } from '../../utils/token';
 
 const userRepository = AppDataSource.getRepository(User);
+const roleRepository = AppDataSource.getRepository(Role);
 
 export const signUp: Handler = async (req, res, next) => {
   try {
+    console.log('\n');
     console.log('signUp', req.body);
     if (!req.body.email || !req.body.password) {
       throwError({
@@ -29,12 +33,18 @@ export const signUp: Handler = async (req, res, next) => {
       });
     }
     const password = await createHash(req.body.password);
-    const newUser: Omit<User, 'id'> = {
+    const role = await roleRepository.findOne({
+      where: {
+        roleName: 'USER',
+      },
+    });
+    const newUser: DeepPartial<User> = {
       email: req.body.email,
       password,
       login: req.body.login,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      role,
     };
     const user = userRepository.create(newUser);
     await userRepository.save(user);

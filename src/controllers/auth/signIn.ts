@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { Handler, Request, Response } from 'express';
 import { AppDataSource } from '../../db/dataSource';
-import { User } from '../../entity/User';
+import { User } from '../../db/entity/User';
 import { IUser } from '../../types/user';
 import { verifyHash } from '../../utils/hash';
 import { throwError } from '../../utils/throwError';
@@ -19,6 +19,7 @@ interface SignInResponseBody {
 
 export const signIn: Handler = async (req, res: Response<SignInResponseBody>, next) => {
   try {
+    console.log('\n');
     console.log('signIn', req.body);
     if (!req.body.email || !req.body.password) {
       throwError({
@@ -42,6 +43,7 @@ export const signIn: Handler = async (req, res: Response<SignInResponseBody>, ne
       });
     }
     delete user.password;
+    console.log('SUCCESS: ', user);
     return res.json({
       data: user,
       message: 'User retrieved successfully',
