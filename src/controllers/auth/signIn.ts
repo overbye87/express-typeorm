@@ -2,14 +2,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { Handler, Request, Response } from 'express';
-import { AppDataSource } from '../../db/dataSource';
-import { User } from '../../db/entity/User';
+import dataSource from '../../db/dataSource';
+import { User } from '../../db/entities/User';
 import { IUser } from '../../types/user';
 import { verifyHash } from '../../utils/hash';
 import { throwError } from '../../utils/throwError';
 import { createToken } from '../../utils/token';
 
-const userRepository = AppDataSource.getRepository(User);
+const userRepository = dataSource.getRepository(User);
 
 interface SignInResponseBody {
   data?: IUser;

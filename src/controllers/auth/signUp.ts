@@ -3,15 +3,15 @@
 /* eslint-disable no-unused-vars */
 import { Handler } from 'express';
 import { DeepPartial } from 'typeorm';
-import { AppDataSource } from '../../db/dataSource';
-import { Role } from '../../db/entity/Role';
-import { User } from '../../db/entity/User';
+import dataSource from '../../db/dataSource';
+import { Role } from '../../db/entities/Role';
+import { User } from '../../db/entities/User';
 import { createHash } from '../../utils/hash';
 import { throwError } from '../../utils/throwError';
 import { createToken } from '../../utils/token';
 
-const userRepository = AppDataSource.getRepository(User);
-const roleRepository = AppDataSource.getRepository(Role);
+const userRepository = dataSource.getRepository(User);
+const roleRepository = dataSource.getRepository(Role);
 
 export const signUp: Handler = async (req, res, next) => {
   try {

@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { Seeder } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { Role } from '../entity/Role';
+import { Role } from '../entities/Role';
 
 export default class RoleSeeder implements Seeder {
   public async run(
