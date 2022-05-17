@@ -7,7 +7,7 @@ import dataSource from '../../db/dataSource';
 import { Role } from '../../db/entities/Role';
 import { User } from '../../db/entities/User';
 import { createHash } from '../../utils/hash';
-import { throwError } from '../../utils/throwError';
+import { myError } from '../../utils/myError';
 import { createToken } from '../../utils/token';
 
 const userRepository = dataSource.getRepository(User);
@@ -18,7 +18,7 @@ export const signUp: Handler = async (req, res, next) => {
     console.log('\n');
     console.log('signUp', req.body);
     if (!req.body.email || !req.body.password) {
-      throwError({
+      throw myError({
         status: 400,
         message: 'Invalid req body',
       });
@@ -27,7 +27,7 @@ export const signUp: Handler = async (req, res, next) => {
       email: req.body.email,
     });
     if (candidate) {
-      throwError({
+      throw myError({
         status: 401,
         message: `Email ${req.body.email} alredy exist`,
       });

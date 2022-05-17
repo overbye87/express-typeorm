@@ -6,7 +6,7 @@ import dataSource from '../../db/dataSource';
 import { User } from '../../db/entities/User';
 import { IUser } from '../../types/user';
 import { verifyHash } from '../../utils/hash';
-import { throwError } from '../../utils/throwError';
+import { myError } from '../../utils/myError';
 import { createToken } from '../../utils/token';
 
 const userRepository = dataSource.getRepository(User);
@@ -22,7 +22,7 @@ export const signIn: Handler = async (req, res: Response<SignInResponseBody>, ne
     console.log('\n');
     console.log('signIn', req.body);
     if (!req.body.email || !req.body.password) {
-      throwError({
+      throw myError({
         status: 400,
         message: 'Invalid req body',
       });
@@ -31,13 +31,13 @@ export const signIn: Handler = async (req, res: Response<SignInResponseBody>, ne
       email: req.body.email,
     });
     if (!user) {
-      throwError({
+      throw myError({
         status: 401,
         message: `No user with email: ${req.body.email}`,
       });
     }
     if (!await verifyHash(req.body.password, user.password)) {
-      throwError({
+      throw myError({
         status: 401,
         message: 'Password is incorrect',
       });
