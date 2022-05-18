@@ -20,7 +20,10 @@ interface SignInResponseBody {
 export const signIn: Handler = async (req, res: Response<SignInResponseBody>, next) => {
   try {
     console.log('\n');
-    console.log('signIn', req.body);
+    console.log('signIn');
+    console.log('body', req.body);
+    console.log('query', req.query);
+    console.log('params', req.params);
     if (!req.body.email || !req.body.password) {
       throw myError({
         status: 400,

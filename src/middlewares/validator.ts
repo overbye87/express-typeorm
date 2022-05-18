@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Handler } from 'express';
 import * as yup from 'yup';
 
@@ -8,9 +9,11 @@ const validator = (yupObjectSchema: yup.ObjectSchema<{}>): Handler => {
         body: req.body,
         query: req.query,
         params: req.params,
-      });
+      }, { abortEarly: false });
       next();
     } catch (error) {
+      console.log('YUP Errors:', error.errors);
+      error.message = error.errors.join(' ');
       next(error);
     }
   };
