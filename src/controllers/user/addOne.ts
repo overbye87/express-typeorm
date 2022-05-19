@@ -42,6 +42,7 @@ export const addOne: Handler = async (req, res, next) => {
     const user = userRepository.create(newUser);
     await userRepository.save(user);
     delete user.password;
+    delete user.role;
     return res.json({
       data: user,
       message: 'User created successfully',
