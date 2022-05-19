@@ -17,13 +17,14 @@ export const deleteOne: Handler = async (req, res, next) => {
     );
 
     if (!user) {
-      throw myError({
-        status: 401,
+      return res.json({
+        data: false,
         message: `No user with id: ${req.params.id}`,
       });
     }
     await userRepository.remove(user);
     return res.json({
+      data: true,
       message: `User with id: ${req.params.id} removed successfully`,
     });
   } catch (error) {
