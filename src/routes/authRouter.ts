@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/', authController.check);
 router.post('/', validator(validatorSchemas.signIn), authController.signIn);
-router.post('/signup', authController.signUp);
+router.post('/signup', validator(validatorSchemas.signUp), authController.signUp);
 
 export default router;

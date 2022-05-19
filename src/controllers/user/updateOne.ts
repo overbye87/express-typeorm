@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { Handler } from 'express';
 import { DeepPartial } from 'typeorm';
@@ -8,15 +7,14 @@ import { Role } from '../../db/entities/Role';
 import { User } from '../../db/entities/User';
 import { createHash } from '../../utils/hash';
 import { myError } from '../../utils/myError';
-import { createToken } from '../../utils/token';
 
 const userRepository = dataSource.getRepository(User);
 const roleRepository = dataSource.getRepository(Role);
 
-export const signUp: Handler = async (req, res, next) => {
+export const updateOne: Handler = async (req, res, next) => {
   try {
     console.log('\n');
-    console.log('signUp', req.body);
+    console.log('updateOne', req.params, req.body);
 
     const candidate = await userRepository.findOneBy({
       email: req.body.email,
@@ -47,7 +45,6 @@ export const signUp: Handler = async (req, res, next) => {
     return res.json({
       data: user,
       message: 'User created successfully',
-      token: createToken(user.id),
     });
   } catch (error) {
     next(error);

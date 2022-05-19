@@ -17,11 +17,12 @@ export const isAuth: Handler = async (req, res, next) => {
     if (!user) {
       throw myError({
         status: 401,
-        message: `No user with id: ${id}`,
+        message: `Token authorization error. No user with id: ${id}`,
       });
     }
-
-    console.log(id, token);
+    console.log('\n');
+    console.log('isAuth ID: ', id);
+    console.log(token);
     next();
   } catch (error) {
     next(error);
