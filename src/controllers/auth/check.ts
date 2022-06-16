@@ -1,12 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { Handler } from 'express';
-import dataSource from '../../db/dataSource';
-import { User } from '../../db/entities/User';
+import { Handler, Response } from 'express';
+import { IUser } from '../../types/user';
+import { createToken } from '../../utils/token';
 
-const userRepository = dataSource.getRepository(User);
+interface checkResponseBody {
+  data?: IUser;
+  message: string;
+  token?: string;
+}
 
-export const check: Handler = async (request, response, next) => {
-  return userRepository.findOneBy({
-    id: Number(request.params.id),
+export const check: Handler = async (req, res: Response<checkResponseBody>, next) => {
+  console.log('\n');
+  console.log('check');
+  const { user } = req.body;
+  delete user.password;
+  console.log('SUCCESS: ', user);
+  return res.json({
+    data: user,
+    message: 'Token check and refresh successfully',
+    token: createToken(user.id),
   });
 };

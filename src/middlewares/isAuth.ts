@@ -1,4 +1,4 @@
-import { Handler } from 'express';
+import { Handler, Request } from 'express';
 import dataSource from '../db/dataSource';
 import { User } from '../db/entities/User';
 import { myError } from '../utils/myError';
@@ -20,6 +20,7 @@ export const isAuth: Handler = async (req, res, next) => {
         message: `Token authorization error. No user with id: ${id}`,
       });
     }
+    req.body.user = user;
     console.log('\n');
     console.log('isAuth ID: ', id);
     console.log(token);
