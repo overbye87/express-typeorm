@@ -24,6 +24,7 @@ export const isAuth: Handler = async (req, res, next) => {
     console.log('\n');
     console.log('isAuth ID: ', id);
     console.log(token);
+    console.log('cookies', req.headers.cookie);
     next();
   } catch (error) {
     next(error);
