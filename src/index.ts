@@ -11,7 +11,11 @@ import dataSource from './db/dataSource';
 const PORT = process.env.PORT ?? config.port;
 
 (async () => {
-  await dataSource.initialize();
+  try {
+    await dataSource.initialize();
+  } catch (error) {
+    console.log(error);
+  }
 
   // await runSeeders(dataSource, { seeds: ['src/db/seeds/**/*{.ts,.js}'] });
 

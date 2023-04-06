@@ -1,10 +1,22 @@
-version: "3"
+version: '3.1'
 services:
-  postgres:
-    image: postgres
-    enviroment:
-      POSTGRES_DB: "mydb"
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+  pgdatabase:
+    image: 'postgres'
+    environment:
+      POSTGRES_DB: 'overbye_db'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
     ports:
-      - "4040:5432"
+      - '5432:5432'
+
+  server:
+    build: .
+    ports:
+      - '3001:3001'
+    environment:
+      DB_HOST: pgdatabase
+      DB_PORT: 5432
+      DB_USER: 'postgres'
+      DB_PASS: 'postgres'
+      DB_NAME: 'overbye_db'
+      DATABASE_URL: postgres://postgres:postgres@pgdatabase:5432/overbye_db
