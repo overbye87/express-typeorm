@@ -11,11 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 // app.use(cookieParser);
-//app.use(rootRouter);
+app.use(rootRouter);
 
-//app.use(errorHandler);
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(errorHandler);
 
 export default app;
